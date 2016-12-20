@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}Block Sample{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        h1 { color: #336699; }
+    </style>
+{% endblock %}
+{% block body %}
+{% if name %}
+  <h1>Hello {{ name }}!</h1>
+{% else %}
+  <h1>Hello World!</h1>
+{% endif %}
+
+{# 调用input宏 #}
+{% import 'form.html' as form %}
+<p>{{ form.input('username', value='user') }}</p>
+<p>{{ form.input('password', 'password') }}</p>
+<p>{{ form.input('submit', 'submit', 'Submit') }}</p>
+{% from 'form.html' import input %}
+<p>{{ input('username', value='user') }}</p>
+<p>{{ input('password', 'password') }}</p>
+<p>{{ input('submit', 'submit', 'Submit', 'more arg1', 'more arg2', ext='more arg3') }}</p>
+
+{# 调用list_users宏 #}
+{% set users=[{'name':'Tom','gender':'M','age':20},
+              {'name':'John','gender':'M','age':18},
+              {'name':'Mary','gender':'F','age':24}]
+%}
+{% call(gender) list_users(users) %}
+    <td>
+    {% if gender == 'M' %}
+    <img src="{{ url_for('static', filename='img/male.png') }}" width="20px">
+    {% else %}
+    <img src="{{ url_for('static', filename='img/female.png') }}" width="20px">
+    {% endif %}
+    </td>
+    <td><input name="delete" type="button" value="Delete"></td>
+{% endcall %}
+
+{% endblock body %}
+
+{% block list %}
+    <em>{{ item }}</em>
+{% endblock %}
+
+{# 定义list_users宏 #}
+{% macro list_users(users) -%}
+  <table>
+    <tr><th>Name</th><th>Gender</th><th>Action</th></tr>
+    {%- for user in users %}
+      <tr><td>{{ user.name |e }}</td>{{ caller(user.gender) }}</tr>
+    {%- endfor %}
+  </table>
+{%- endmacro %}

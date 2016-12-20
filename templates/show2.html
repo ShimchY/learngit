@@ -1,0 +1,27 @@
+{% set users=[{'name':'Tom','gender':'M','age':20}, 
+              {'name':'John','gender':'M','age':18},
+              {'name':'Mary','gender':'F','age':24},
+              {'name':'Bob','gender':'M','age':31},
+              {'name':'Lisa','gender':'F','age':19}]
+
+%}
+
+{# 按指定字段排序，这里设reverse为true使其按按降序排序 #}
+<ul>
+{% for user in users | sort(attribute='age', reverse=true) %}
+    <li>{{ user.name }},{{ user.age }}</li>
+{% endfor %}
+</ul>
+
+{# 列表分组，每组是一个子列表， 组名就是分组项的值 #}
+<ul>
+{% for group in users|groupby('gender') %}
+    <li>{{ group.grouper }}<ul>
+    {% for user in group.list %}
+        <li>{{ user.name }} </li>
+    {% endfor %}</ul></li>
+{% endfor %}
+</ul>
+
+{# 取字典中的某一项组成列表， 再将其连接起来 #}
+<p> {{ users | map(attribute='name') | join(', ') }} </p>

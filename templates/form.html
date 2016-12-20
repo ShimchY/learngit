@@ -1,0 +1,11 @@
+{# 定义input宏 #}
+{% macro input(name, type='text', value='') -%}
+    <input type="{{ type }}" name="{{ name }}" value="{{ value|e }}">
+    {% set sep = joiner("|") %}
+    {% for arg in varargs %}
+        {{ sep() }} <span>{{ arg }}</span>
+    {% endfor %}
+    {% for k,v in kwargs.items() %}
+        {{ sep() }} <span>{{ k }} = {{ v }}</span>
+    {% endfor %}
+{%- endmacro %}

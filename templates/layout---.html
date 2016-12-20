@@ -1,0 +1,19 @@
+<!DOCTYPE>
+<head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+    <div class="page">
+    {% block body %}
+    {% endblock %}
+    </div>
+
+    {% for item in range(5) %}
+        <li>{% block list scoped %}{% endblock %}</li>
+    {% endfor %}
+
+    {% include ['footer.html','bottom.html'] ignore missing %}
+</body>

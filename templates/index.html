@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title>{% if appname %}
+              {{ appname }} -- mobilecms
+         {% else %}
+              default -- mobilecms
+         {% endif %}
+   </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+ </head>
+
+ <body>
+<p>Your Browser is {{}} </p>
+
+ <ul>Hello {{ name }}!</ul>
+
+  {% if name and name == 'admin' %}
+    <h1>This is admin console</h1>
+  {% elif name %}
+    <h1>Welcome {{ name }}</h1>
+  {% else %}
+    <h1>Please login</h1>
+  {% endif %}
+ </body>
+</html>
